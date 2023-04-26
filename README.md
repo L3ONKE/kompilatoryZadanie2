@@ -1,0 +1,1 @@
+# kompilatoryZadanie2
