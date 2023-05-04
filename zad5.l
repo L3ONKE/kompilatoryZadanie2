@@ -6,6 +6,7 @@
 #include <iostream>
 #include <algorithm>
 using namespace std;
+
 map<string, int> w_map;
 typedef pair<string, int> para;
 void word_count(string text);
@@ -13,8 +14,7 @@ void word_count(string text);
 
 
 LETTER [a-zA-ZąćęłńóśżźĄĆĘŃÓŁŚŻŹ]
-WORD  {LETTER}{3,}+
-
+WORD  {LETTER}{4,}+
 
 %%
 {WORD} {string word1(yytext); word_count(word1);}
@@ -28,6 +28,7 @@ void word_count(string text){
         w_map[text]=1;
      }
 
+}
 }
 
 
@@ -43,7 +44,11 @@ int main()
 
                 return l.first > r.first;
             });
-            pair first=vec[0]; /*Dodanie wynikow do doatkowej struktury para, aby moc wyprowadzic na ekran*/
-	cout<<"Najczesciej wystepujace słowo w tekscie to: "<<first.first<<" owe slowo wystepuje "<<first.second<<" razy"<<endl;
-	return 0;
+
+	cout<<"RANKING SLOW W PODANYM TEKSCIE: "<<endl;   /*Dodanie wynikow do doatkowej struktury para, aby moc wyprowadzic na ekran*/
+      	for(int i = 0; i < 10; i++){
+    		pair single = vec[i];
+    		cout << "Miejsce: " << i+1 << " \"" << single.first << "\"  występuje " << single.second << " razy" <<endl;
+    	}
+    return 0;
 }
