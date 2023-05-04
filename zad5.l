@@ -5,11 +5,13 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include <codecvt>
+#include <locale>
 using namespace std;
-
 map<string, int> w_map;
 typedef pair<string, int> para;
 void word_count(string text);
+wstring_convert<codecvt_utf8_utf16<wchar_t>> converter;
 %}
 
 
@@ -21,6 +23,7 @@ WORD  {LETTER}{4,}+
 %%
 int yywrap(){}
 void word_count(string text){
+if( converter.from_bytes(text).size()>=4){
     if(w_map.find(text) != w_map.end()){
         w_map[text]++;
      }
