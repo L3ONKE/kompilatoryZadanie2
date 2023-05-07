@@ -1,0 +1,18 @@
+int i = 2 ;
+float z = 5.2 ;
+string k = "Kotki male dwa";
+while( i < 5 ){ 
+i = i + 1;
+}
+if( i < 5 ){ 
+i = i + 1;
+}
+int k = 5 ;
+if( i < 5 ){ 
+i = i + 1;
+}else{ 
+  z = 2; 
+}
+
+
+if(i<z){blebleble}
