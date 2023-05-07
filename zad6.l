@@ -14,13 +14,11 @@ COMMAND {TYPE}{SPACE}+{ID}{SPACE}*{EQ}{SPACE}*{NUMBER}{SPACE}*;
 %s  INSIDE_COMMENT
 %s  INSIDE_ONE_LINE_COMMENT
 
-
-
 %%
-<INITIAL>{COMMAND} {cout<< "Wykryłem instrukcję "<<yytext <<endl;}
-{DIGIT}+ { printf("Liczba calkowita: %s (%d)\n",yytext,atoi(yytext));}
-{DIGIT}+"."{DIGIT}* { printf("Liczba zmiennoprzecinkowa: %s (%g)\n",yytext,atoi(yytext));}
-if|then|begin|end|for|while {printf("Słowo kluczowe:: %s \n",yytext);}
+
+
+int+{SPACE}+{ID}{SPACE}*{EQ}{SPACE}*{NUMBER}{SPACE}*; {cout<<"DEKLARACJA_INT"<<endl;}
+float+{SPACE}+{ID}{SPACE}*{EQ}{SPACE}*{DIGIT}+"."{DIGIT}*{SPACE}*; {cout<<"DEKLARACJA_FLOAT"<<endl;}
 "+"|"-"|"*"|"/"   printf( "Operator: %s\n", yytext );
 \/\*      {cout<< "Początek komentarza "<<yytext <<endl; BEGIN(INSIDE_COMMENT);}
 \*\/      {cout<< "Koniec komentarza "<<yytext <<endl; BEGIN(INITIAL);}
@@ -28,6 +26,10 @@ if|then|begin|end|for|while {printf("Słowo kluczowe:: %s \n",yytext);}
 <INSIDE_ONE_LINE_COMMENT>{COMMAND} {cout<< "UWAGA instrukcja "<< yytext << " w komentarzu, potencjalny błąd czystego kodu"<<endl;}
 \/\/      {cout<< "Początek komentarza "<<yytext <<endl; BEGIN(INSIDE_ONE_LINE_COMMENT);}
 <INSIDE_ONE_LINE_COMMENT>\n   {cout<< "Koniec komentarza w linii"<<yytext <<endl; BEGIN(INITIAL);}
+if\({SPACE}[^)]*\)\{{SPACE}+[^}]+\}   { cout << "Znaleziono poprawny warunek IF" << endl; }
+if   {cout<<"Błąd IF"<<endl;}
+while\({SPACE}[^)]*\)\{{SPACE}+[^}]+\}   { cout << "Znaleziono poprawną pętlę while" << endl; }
+while   { cout << "Błąd: Brak warunku lub bloku w pętli while" << endl; }
 
 %%
 
